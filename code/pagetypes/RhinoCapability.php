@@ -15,14 +15,6 @@ class RhinoCapability extends RhinoPage {
 
 	private static $allowed_children = array("RhinoModule");
 
-	private static $can_be_root = false;
-
-	public function getCMSFields() {
-		$fields = parent::getCMSFields();
-		$fields->removeByName('Content');
-		return $fields;
-	}
-
 	/*****
 	* Helper methods to find children
 	****/
@@ -53,39 +45,6 @@ class RhinoCapability extends RhinoPage {
 		}
 		return singleton('RhinoAccount');
 	}
-
-	// /**
-	//  *
-	//  * Determine if there are any modules with drafts
-	//  *
-	//  * @return boolean
-	//  */
-	// public function hasDraftAssignments() {
-	// 	$memberID = Member::currentUserID();
-
-	// 	$modules = $this->Modules()->map('ID', 'Title');
-
-	// 	if(!$modules) {
-	// 		return false;
-	// 	}
-
-	// 	$extra = sprintf("SubmittedByID = '%s'", $memberID);
-
-	// 	if($modules->count() > 0) {
-
-	// 		$draftQuery = sprintf("
-	// 			SELECT COUNT(DISTINCT ParentID) FROM SubmittedForm WHERE SubmittedForm.ModuleID IN (%s) AND %s AND IsDraft=1 ",
-	// 			 implode(",", $modules->keys()), $extra
-	// 		);
-
-	// 		$pending = DB::query($draftQuery);
-
-	// 		return ($pending->value()>0);
-
-	// 	}
-
-	// 	return false;
-	// }
 
 }
 

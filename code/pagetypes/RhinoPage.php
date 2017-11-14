@@ -47,7 +47,7 @@ class RhinoPage extends Page {
 			return false;
 		}
 		$pc = Injector::inst()->get('RhinoPermissionCheck');
-		return $pc->can($member, 'view', $this);cd
+		return $pc->can($member, 'view', $this);
 	}
 
 	public function canCreate($member = null) {
