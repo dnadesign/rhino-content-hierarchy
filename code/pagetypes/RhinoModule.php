@@ -16,7 +16,7 @@ class RhinoModule extends RhinoPage {
 	/*****
 	* Helper methods to find children
 	****/
-	public function getAssignments() {
+	public function getAssessments() {
 		return RhinoAssessment::get()->filter('ParentID', $this->ID);
 	}
 

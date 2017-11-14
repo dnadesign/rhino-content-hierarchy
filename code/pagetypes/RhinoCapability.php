@@ -22,7 +22,7 @@ class RhinoCapability extends RhinoPage {
 		return RhinoModule::get()->filter('ParentID', $this->ID);
 	}
 
-	public function getAssignments() {
+	public function getAssessments() {
 		$modules = $this->getModules();
 		if ($modules && $modules->Count() > 0) {
 			return RhinoAssessment::get()->filter('ParentID', $modules->column('ID'));
