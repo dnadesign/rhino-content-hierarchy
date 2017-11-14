@@ -1,0 +1,16 @@
+{
+    "name": "dnadesign/rhino-content-hierarchy",
+    "license": "Copyright 2017 DNA Design",
+    "authors": ["DNA Design"],
+    "type": "silverstripe-module",
+    "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/dnadesign/rhino-lite"
+    }],
+    "require": {
+    	"silverstripe/framework": ">=3.2",
+    	"silverstripe/cms": ">=3.2",
+        "dnadesign/rhino-lite": "dev-master"
+    }
+}
