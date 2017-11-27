@@ -36,59 +36,6 @@ class RhinoPage extends Page {
 		
 		return $fields;
 	}
-
-	public function canView($member = null) {
-		if(!$member || !(is_a($member, 'Member'))) {
-			$member = Member::currentUser();
-		} else if (is_numeric($member)) {
-			$member = Member::get_by_id('Member', $member);
-		}
-		if (!parent::canView($member)) {
-			return false;
-		}
-		$pc = Injector::inst()->get('RhinoPermissionCheck');
-		return $pc->can($member, 'view', $this);
-	}
-
-	public function canCreate($member = null) {
-		if(!$member || !(is_a($member, 'Member'))) {
-			$member = Member::currentUser();
-		} else if (is_numeric($member)) {
-			$member = Member::get_by_id('Member', $member);
-		}
-		$context = func_num_args() > 1 ? func_get_arg(1) : array();
-		if (!parent::canCreate($member, $context)) {
-			return false;
-		}
-		$pc = Injector::inst()->get('RhinoPermissionCheck');
-		return $pc->can($member, 'create', $this);
-	}
-
-	public function canEdit($member = null) {
-		if(!$member || !(is_a($member, 'Member'))) {
-			$member = Member::currentUser();
-		} else if (is_numeric($member)) {
-			$member = Member::get_by_id('Member', $member);
-		}
-		if (!parent::canEdit($member)) {
-			return false;
-		}
-		$pc = Injector::inst()->get('RhinoPermissionCheck');
-		return $pc->can($member, 'edit', $this);
-	}
-
-	public function canDelete($member = null) {
-		if(!$member || !(is_a($member, 'Member'))) {
-			$member = Member::currentUser();
-		} else if (is_numeric($member)) {
-			$member = Member::get_by_id('Member', $member);
-		}
-		if (!parent::canDelete($member)) {
-			return false;
-		}
-		$pc = Injector::inst()->get('RhinoPermissionCheck');
-		return $pc->can($member, 'delete', $this);
-	}
 }
 
 class RhinoPage_Controller extends Page_Controller {
