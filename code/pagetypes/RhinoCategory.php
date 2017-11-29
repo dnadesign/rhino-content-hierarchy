@@ -8,8 +8,6 @@ class RhinoCategory extends RhinoPage {
 
 	private static $default_parent = 'RhinoAccount';
 
-	private static $allowed_children = array("RhinoCapability");
-
 	/*****
 	* Helper methods to find children
 	****/

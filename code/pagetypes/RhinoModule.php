@@ -11,8 +11,6 @@ class RhinoModule extends RhinoPage {
 
 	private static $default_parent = 'RhinoCapability';
 
-	private static $allowed_children = array("RhinoAssessment");
-
 	/*****
 	* Helper methods to find children
 	****/

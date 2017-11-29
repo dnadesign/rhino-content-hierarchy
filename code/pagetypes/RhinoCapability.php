@@ -13,8 +13,6 @@ class RhinoCapability extends RhinoPage {
 
 	private static $default_parent = 'RhinoCategory';
 
-	private static $allowed_children = array("RhinoModule");
-
 	/*****
 	* Helper methods to find children
 	****/
