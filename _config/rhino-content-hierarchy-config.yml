@@ -1,0 +1,8 @@
+---
+Name: rhino-content-hierarchy
+After: rhino
+---
+
+RhinoAssessment:
+  extensions:
+    - RhinoAssessmentHierarchyExtension
