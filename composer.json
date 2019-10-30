@@ -11,6 +11,6 @@
     "require": {
     	"silverstripe/framework": ">=3.2",
     	"silverstripe/cms": ">=3.2",
-        "dnadesign/rhino-lite": "1.0.1"
+        "dnadesign/rhino-lite": "1.0.2"
     }
 }
