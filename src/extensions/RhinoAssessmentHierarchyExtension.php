@@ -37,7 +37,7 @@ class RhinoAssessmentHierarchyExtension extends DataExtension
 	public function getParentOfType($type)
 	{
 		$parents = $this->owner->getBreadcrumbItems();
-		$parents->remove($this);
+		$parents->remove($this->owner);
 
 		return $parents->find('ClassName', $type);
 	}
