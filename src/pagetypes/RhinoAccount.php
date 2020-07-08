@@ -1,5 +1,19 @@
 <?php
 
+namespace DNADesign\Rhino\Pagetypes;
+
+use DNADesign\Rhino\Pagetypes\RhinoAssessment;
+use DNADesign\Rhino\Pagetypes\RhinoCapability;
+use DNADesign\Rhino\Pagetypes\RhinoCategory;
+use DNADesign\Rhino\Pagetypes\RhinoModule;
+use DNADesign\Rhino\Pagetypes\RhinoPage;
+use SilverStripe\Assets\Image;
+use SilverStripe\Core\Convert;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+use SilverStripe\Security\Group;
+use SilverStripe\Security\Member;
+
 /**
  * A high level wrapper around a Rhino account.
  *
@@ -9,22 +23,29 @@
  *
  * @package rhino
  */
-class RhinoAccount extends RhinoPage {
+class RhinoAccount extends RhinoPage
+{
 
 	private static $has_one = array(
-		'Logo' => 'Image',
-		'UserGroup' => 'Group'
+		'Logo' => Image::class,
+		'UserGroup' => Group::class
 	);
 
 	private static $many_many = array(
-		'Administrators' => 'Member'
+		'Administrators' => Member::class
 	);
 
-	private static $allowed_children = array('RhinoCategory', 'RhinoCapability', 'RhinoModule', 'RhinoAssessment');
+	private static $allowed_children = [
+		RhinoCategory::class,
+		RhinoCapability::class,
+		RhinoModule::class,
+		RhinoAssessment::class
+	];
 
-	public function getCMSFields() {
+	public function getCMSFields()
+	{
 		$fields = parent::getCMSFields();
-		
+
 		$gridFieldConfig = GridFieldConfig_RelationEditor::create();
 		$grid = GridField::create(
 			'Administrators',
@@ -38,18 +59,17 @@ class RhinoAccount extends RhinoPage {
 	}
 
 	/**
-	* Creates a new UserGroup for this Account
-	* Makes sure the UserGroup Code is unique
-	*/
-	public function onBeforeWrite() {
+	 * Creates a new UserGroup for this Account
+	 * Makes sure the UserGroup Code is unique
+	 */
+	public function onBeforeWrite()
+	{
 		parent::onBeforeWrite();
 
 		if ($this->URLSegment) {
 			$groupcode = $this->URLSegment;
 
-			$group = DataObject::get('Group', array(
-				'"Group"."Code"' => $groupcode
-			));
+			$group = Group::get()->filter('Code', $groupcode);
 
 			if (!$group) {
 				$group = new Group();
@@ -59,19 +79,22 @@ class RhinoAccount extends RhinoPage {
 			}
 
 			$this->UserGroupID = $group->ID;
-		}		
+		}
 	}
 
-	/*****
-	* Helper methods to find children
-	****/
-	public function getCategories() {
+	/**
+	 * Helper methods to find children
+	 *
+	 */
+	public function getCategories()
+	{
 		$categories = RhinoCategory::get()->filter('ParentID', $this->ID);
 		$this->extend('updateCategories', $categories);
 		return $categories;
 	}
 
-	public function getCapabilities() {
+	public function getCapabilities()
+	{
 		$categories = $this->getCategories();
 		if ($categories && $categories->Count() > 0) {
 			$capabilities =  RhinoCapability::get()->filter('ParentID', $categories->column('ID'));
@@ -82,7 +105,8 @@ class RhinoAccount extends RhinoPage {
 		return null;
 	}
 
-	public function getModules() {
+	public function getModules()
+	{
 		$capabilities = $this->getCapabilities();
 		if ($capabilities && $capabilities->Count() > 0) {
 			$modules = RhinoModule::get()->filter('ParentID', $capabilities->column('ID'));
@@ -93,7 +117,8 @@ class RhinoAccount extends RhinoPage {
 		return null;
 	}
 
-	public function getAssessments() {
+	public function getAssessments()
+	{
 		$modules = $this->getModules();
 		if ($modules && $modules->Count() > 0) {
 			$assignments = RhinoAssessment::get()->filter('ParentID', $modules->column('ID'));
@@ -103,9 +128,4 @@ class RhinoAccount extends RhinoPage {
 
 		return null;
 	}
-
-}
-
-class RhinoAccount_Controller extends RhinoPage_Controller {
-
 }

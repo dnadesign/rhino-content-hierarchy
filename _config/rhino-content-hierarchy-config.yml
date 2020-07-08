@@ -3,6 +3,6 @@ Name: rhino-content-hierarchy
 After: rhino
 ---
 
-RhinoAssessment:
+DNADesign\Rhino\Pagetypes\RhinoAssessment:
   extensions:
-    - RhinoAssessmentHierarchyExtension
+    - DNADesign\Rhino\Extensions\RhinoAssessmentHierarchyExtension
